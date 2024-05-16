@@ -12,27 +12,33 @@ pipeline {
             }
         }
         
-        dir('demo') {
-            stage('Build') {
-                steps {
+        stage('Build') {
+            steps {
+                dir('demo') {
                     sh './gradlew clean build'
                 }
             }
-            
-            stage('Test') {
-                steps {
+        }
+        
+        stage('Test') {
+            steps {
+                dir('demo') {
                     sh './gradlew test'
                 }
             }
-            
-            stage('Package') {
-                steps {
+        }
+        
+        stage('Package') {
+            steps {
+                dir('demo') {
                     sh './gradlew bootJar'
                 }
             }
-            
-            stage('Deploy') {
-                steps {
+        }
+        
+        stage('Deploy') {
+            steps {
+                dir('demo') {
                     // 기존에 실행 중인 스프링 부트 애플리케이션 종료
                     sh 'pkill -f *.jar || true'
             
